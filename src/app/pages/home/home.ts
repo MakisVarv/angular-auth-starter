@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-home',
   styleUrl: './home.css',
   templateUrl: './home.html',
@@ -11,6 +12,8 @@ export class Home {
   subTitle = 'Build on a solid foundation';
   description =
     'A reusable application foundation with authentication, role-based access control, user management, and a clean frontend-backend architecture.';
+  featuresTitle = 'Core capabilities';
+  featuresDescription = 'Common application concerns already organized into a reusable foundation.';
   features = [
     {
       title: 'Authentication',

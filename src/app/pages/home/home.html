@@ -11,7 +11,67 @@
         </h1>
 
         <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">{{description}}</p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <!-- {user ? (
+          <Link to={authenticatedDestination}
+            class="rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+          {authenticatedLabel}
+          </Link>
+          ) : ( -->
+          <a routerLink="/login"
+            class="rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+            Sign In
+          </a>
+          <a routerLink="/register"
+            class="rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300">
+            Create Account
+          </a>
+        </div>
       </div>
     </div>
   </section>
+  <section class="border-t border-slate-200 bg-white px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-10 text-center">
+        <h2 class="text-2xl font-semibold text-slate-900">
+          {{featuresTitle}}
+        </h2>
+        <p class="mt-2 text-sm text-slate-500">{{featuresDescription}}</p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        @for(feature of features; track feature.title){
+        <article
+          class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+          <div
+            class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-sm font-bold text-blue-700">
+            {{feature.title.charAt(0)}}
+          </div>
+
+          <h3 class="font-semibold text-slate-900">
+            {{feature.title}}
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-slate-500">
+            {{feature.description}}
+          </p>
+        </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div
+      class="mx-auto max-w-4xl rounded-2xl border border-slate-200 bg-white px-6 py-10 text-center shadow-sm sm:px-10">
+      <h2 class="text-2xl font-semibold text-slate-900">
+        Ready to get started?
+      </h2>
+
+      <p class="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500">
+        Use the existing application foundation and focus on building the
+        features that make your product unique.
+      </p>
+    </div>
+  </section>
+
 </div>
