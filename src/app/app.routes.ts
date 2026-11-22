@@ -11,7 +11,6 @@ import { ResetPassword } from './features/auth/pages/reset-password/reset-passwo
 
 export const routes: Routes = [
   { path: '', component: Home },
-  { path: '**', component: NotFound },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'profile', component: Profile },
@@ -19,4 +18,5 @@ export const routes: Routes = [
   { path: 'change-password', component: ChangePassword },
   { path: 'reset-password', component: ResetPassword },
   { path: 'logout-all', component: LogoutAll },
+  { path: '**', component: NotFound },
 ];
