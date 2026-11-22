@@ -8,6 +8,7 @@ import { Profile } from './features/auth/pages/profile/profile';
 import { ChangePassword } from './features/auth/pages/change-password/change-password';
 import { LogoutAll } from './features/auth/pages/logout-all/logout-all';
 import { ResetPassword } from './features/auth/pages/reset-password/reset-password';
+import { ForgotPassword } from './features/auth/pages/forgot-password/forgot-password';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'profile', component: Profile },
   { path: 'change-email', component: ChangeEmail },
   { path: 'change-password', component: ChangePassword },
+  { path: 'forgot-password', component: ForgotPassword },
   { path: 'reset-password', component: ResetPassword },
   { path: 'logout-all', component: LogoutAll },
   { path: '**', component: NotFound },
