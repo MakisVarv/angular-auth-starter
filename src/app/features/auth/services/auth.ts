@@ -11,10 +11,12 @@ export class Auth {
   private readonly http = inject(HttpClient);
   private readonly authUrl = `${environment.apiUrl}/auth`;
   login(credentials: LoginCredentials): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.authUrl}/login`, credentials);
+    return this.http.post<LoginResponse>(`${this.authUrl}/login`, credentials, {
+      withCredentials: true,
+    });
   }
   register(credentials: RegisterCredentials): Observable<User> {
-    return this.http.post<User>(`${this.authUrl}/register`, credentials);
+    return this.http.post<User>(`${this.authUrl}/register`, credentials, { withCredentials: true });
   }
   logout(): Observable<void> {
     const csrfToken = getCookie('csrf_refresh_token');
@@ -34,19 +36,27 @@ export class Auth {
   }
 
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>(`${this.authUrl}/me`);
+    return this.http.get<User>(`${this.authUrl}/me`, { withCredentials: true });
   }
   updateProfile(data: UpdateProfileData): Observable<User> {
-    return this.http.patch<User>(`${this.authUrl}/me`, data);
+    return this.http.patch<User>(`${this.authUrl}/me`, data, { withCredentials: true });
   }
   forgotPassword(email: string): Observable<MessageResponse> {
-    return this.http.post<MessageResponse>(`${this.authUrl}/forgot-password`, { email });
+    return this.http.post<MessageResponse>(
+      `${this.authUrl}/forgot-password`,
+      { email },
+      { withCredentials: true },
+    );
   }
   resetPassword(token: string, newPassword: string): Observable<MessageResponse> {
-    return this.http.post<MessageResponse>(`${this.authUrl}/reset-password`, {
-      token,
-      new_password: newPassword,
-    });
+    return this.http.post<MessageResponse>(
+      `${this.authUrl}/reset-password`,
+      {
+        token,
+        new_password: newPassword,
+      },
+      { withCredentials: true },
+    );
   }
   changePassword(freshAccessToken: string, newPassword: string): Observable<MessageResponse> {
     return this.http.post<MessageResponse>(
@@ -58,6 +68,7 @@ export class Auth {
         headers: {
           Authorization: `Bearer ${freshAccessToken}`,
         },
+        withCredentials: true,
       },
     );
   }
@@ -71,13 +82,18 @@ export class Auth {
         headers: {
           Authorization: `Bearer ${freshAccessToken}`,
         },
+        withCredentials: true,
       },
     );
   }
   reauthenticate(currentPassword: string): Observable<{ access_token: string }> {
-    return this.http.post<{ access_token: string }>(`${this.authUrl}/reauthenticate`, {
-      current_password: currentPassword,
-    });
+    return this.http.post<{ access_token: string }>(
+      `${this.authUrl}/reauthenticate`,
+      {
+        current_password: currentPassword,
+      },
+      { withCredentials: true },
+    );
   }
   logoutAll(freshAccessToken: string): Observable<MessageResponse> {
     return this.http.post<MessageResponse>(
@@ -87,6 +103,7 @@ export class Auth {
         headers: {
           Authorization: `Bearer ${freshAccessToken}`,
         },
+        withCredentials: true,
       },
     );
   }
