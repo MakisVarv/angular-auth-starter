@@ -5,16 +5,16 @@ import { Observable, of } from 'rxjs';
 import { User } from '../../users/types';
 import { getCookie } from '../../../shared/utils/cookies';
 import { MessageResponse } from '../../../shared/api/types';
-
+import { environment } from '../../../../environments/environment';
 @Service()
 export class Auth {
   private readonly http = inject(HttpClient);
-
+  private readonly authUrl = `${environment.apiUrl}/auth`;
   login(credentials: LoginCredentials): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('/auth/login', credentials);
+    return this.http.post<LoginResponse>(`${this.authUrl}/login`, credentials);
   }
   register(credentials: RegisterCredentials): Observable<User> {
-    return this.http.post<User>('/auth/register', credentials);
+    return this.http.post<User>(`${this.authUrl}/register`, credentials);
   }
   logout(): Observable<void> {
     const csrfToken = getCookie('csrf_refresh_token');
@@ -22,7 +22,7 @@ export class Auth {
       return of(void 0);
     }
     return this.http.post<void>(
-      '/auth/logout',
+      `${this.authUrl}/logout`,
       {},
       {
         headers: {
@@ -34,23 +34,23 @@ export class Auth {
   }
 
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>('/auth/me');
+    return this.http.get<User>(`${this.authUrl}/me`);
   }
   updateProfile(data: UpdateProfileData): Observable<User> {
-    return this.http.patch<User>('/auth/me', data);
+    return this.http.patch<User>(`${this.authUrl}/me`, data);
   }
   forgotPassword(email: string): Observable<MessageResponse> {
-    return this.http.post<MessageResponse>('/auth/forgot-password', { email });
+    return this.http.post<MessageResponse>(`${this.authUrl}/forgot-password`, { email });
   }
   resetPassword(token: string, newPassword: string): Observable<MessageResponse> {
-    return this.http.post<MessageResponse>('/auth/reset-password', {
+    return this.http.post<MessageResponse>(`${this.authUrl}/reset-password`, {
       token,
       new_password: newPassword,
     });
   }
   changePassword(freshAccessToken: string, newPassword: string): Observable<MessageResponse> {
     return this.http.post<MessageResponse>(
-      '/auth/change-password',
+      `${this.authUrl}/change-password`,
       {
         new_password: newPassword,
       },
@@ -63,7 +63,7 @@ export class Auth {
   }
   changeEmail(freshAccessToken: string, newEmail: string): Observable<MessageResponse> {
     return this.http.post<MessageResponse>(
-      '/auth/change-email',
+      `${this.authUrl}/change-email`,
       {
         new_email: newEmail,
       },
@@ -75,13 +75,13 @@ export class Auth {
     );
   }
   reauthenticate(currentPassword: string): Observable<{ access_token: string }> {
-    return this.http.post<{ access_token: string }>('/auth/reauthenticate', {
+    return this.http.post<{ access_token: string }>(`${this.authUrl}/reauthenticate`, {
       current_password: currentPassword,
     });
   }
   logoutAll(freshAccessToken: string): Observable<MessageResponse> {
     return this.http.post<MessageResponse>(
-      '/auth/logout-all',
+      `${this.authUrl}/logout-all`,
       {},
       {
         headers: {
