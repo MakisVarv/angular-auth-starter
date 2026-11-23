@@ -7,3 +7,4 @@ export const loginRequested = createAction(
   '[Auth] Login Requested',
   props<{ credentials: LoginCredentials }>(),
 );
+export const loginFailed = createAction('[Auth] Login Failed');
