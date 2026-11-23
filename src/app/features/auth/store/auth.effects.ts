@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { exhaustMap, map } from 'rxjs';
+import { catchError, exhaustMap, map, of } from 'rxjs';
 
 import { Auth } from '../services/auth';
-import { loginRequested, loginSucceeded } from './auth.actions';
+import { loginFailed, loginRequested, loginSucceeded } from './auth.actions';
 
 export const loginEffect = createEffect(
   (actions$ = inject(Actions), authService = inject(Auth)) =>
@@ -11,9 +11,10 @@ export const loginEffect = createEffect(
       ofType(loginRequested),
 
       exhaustMap(({ credentials }) =>
-        authService
-          .login(credentials)
-          .pipe(map((response) => loginSucceeded({ user: response.user }))),
+        authService.login(credentials).pipe(
+          map((response) => loginSucceeded({ user: response.user })),
+          catchError(() => of(loginFailed())),
+        ),
       ),
     ),
   { functional: true },
