@@ -6,6 +6,6 @@ export const authReducer = createReducer(
   initialAuthState,
 
   on(loginSucceeded, (state, action) => {
-    return { ...state, user: action.user };
+    return { ...state, user: action.user, status: 'authenticated', isLoggingIn: false };
   }),
 );

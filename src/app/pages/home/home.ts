@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectAuthStatus } from '../../features/auth/store/auth.selectors';
 
 @Component({
   imports: [RouterLink],
@@ -8,6 +11,8 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home.html',
 })
 export class Home {
+  private readonly store = inject(Store);
+  readonly authStatus = this.store.selectSignal(selectAuthStatus);
   title = 'Production-oriented starter';
   subTitle = 'Build on a solid foundation';
   description =

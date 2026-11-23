@@ -6,6 +6,7 @@ import { User } from '../../users/types';
 import { getCookie } from '../../../shared/utils/cookies';
 import { MessageResponse } from '../../../shared/api/types';
 import { environment } from '../../../../environments/environment.development';
+
 @Service()
 export class Auth {
   private readonly http = inject(HttpClient);
