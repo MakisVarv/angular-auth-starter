@@ -45,13 +45,11 @@ export class Register {
     if (this.registerForm.invalid) {
       return;
     }
-    const { confirm_password, password } = this.registerForm.value;
-    if (password !== confirm_password) {
+    const { confirm_password, ...credentials } = this.registerForm.getRawValue();
+    if (credentials.password !== confirm_password) {
       this.error = "Passwords don't match!";
+      return;
     }
-
-    const credentials = this.registerForm.getRawValue();
-
     this.store.dispatch(registerRequested({ credentials }));
   }
 }
