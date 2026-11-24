@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Auth } from '../../services/auth';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { loginSucceeded } from '../../store/auth.actions';
+import { loginRequested } from '../../store/auth.actions';
 @Component({
   imports: [ReactiveFormsModule],
   selector: 'app-login',
@@ -33,13 +33,6 @@ export class Login {
 
     const credentials = this.loginForm.getRawValue();
 
-    this.authService.login(credentials).subscribe({
-      next: (response) => {
-        this.store.dispatch(loginSucceeded({ user: response.user }));
-      },
-      error: (error) => {
-        console.error('Login request failed:', error.status);
-      },
-    });
+    this.store.dispatch(loginRequested({ credentials }));
   }
 }
