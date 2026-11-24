@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Auth } from '../../services/auth';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { registerRequested } from '../../store/auth.actions';
+import { selectIsRegistering } from '../../store/auth.selectors';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -13,6 +14,7 @@ import { registerRequested } from '../../store/auth.actions';
 export class Register {
   private readonly authService = inject(Auth);
   private readonly store = inject(Store);
+  readonly isRegistering = this.store.selectSignal(selectIsRegistering);
   title = 'Register';
   error = '';
 

@@ -50,8 +50,8 @@
     {{error}}
   </p>}
 
-  <button
+  <button [disabled]="isRegistering()"
     class="w-full rounded-lg bg-blue-600 px-4 py-2.5 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
-    Register
+    {{ isRegistering() ? 'Registering...' : 'Register' }}
   </button>
 </form>

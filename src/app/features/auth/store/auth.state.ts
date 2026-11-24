@@ -7,10 +7,12 @@ export interface AuthState {
   status: AuthStatus;
 
   isLoggingIn: boolean;
+  isRegistering: boolean;
 }
 
 export const initialAuthState: AuthState = {
   user: null,
   status: 'checking',
   isLoggingIn: false,
+  isRegistering: false,
 };
