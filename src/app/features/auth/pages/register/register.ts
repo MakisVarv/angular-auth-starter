@@ -51,5 +51,6 @@ export class Register {
       return;
     }
     this.store.dispatch(registerRequested({ credentials }));
+    this.error = '';
   }
 }
