@@ -14,6 +14,7 @@ export class Register {
   private readonly authService = inject(Auth);
   private readonly store = inject(Store);
   title = 'Register';
+  error = '';
 
   registerForm = new FormGroup({
     first_name: new FormControl('', {
@@ -43,6 +44,10 @@ export class Register {
 
     if (this.registerForm.invalid) {
       return;
+    }
+    const { confirm_password, password } = this.registerForm.value;
+    if (password !== confirm_password) {
+      this.error = "Passwords don't match!";
     }
 
     const credentials = this.registerForm.getRawValue();
