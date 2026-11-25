@@ -5,7 +5,6 @@ export type AuthStatus = 'checking' | 'authenticated' | 'unauthenticated';
 export interface AuthState {
   user: User | null;
   status: AuthStatus;
-
   isLoggingIn: boolean;
   isRegistering: boolean;
   registrationStatus: RegistrationStatus;

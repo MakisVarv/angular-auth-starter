@@ -20,8 +20,8 @@
     class="mb-3 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
     placeholder='Password' id='password' name='password' type='password' />
 
-  <button
+  <button [disabled]="isLoggingIn()"
     class="w-full rounded-lg bg-blue-600 px-4 py-2.5 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
-    Login
+    {{isLoggingIn() ? 'Logging in ...' : 'Login'}}
   </button>
 </form>

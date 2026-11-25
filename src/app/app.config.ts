@@ -6,7 +6,9 @@ import { authReducer } from './features/auth/store/auth.reducer';
 import { provideEffects } from '@ngrx/effects';
 import {
   loginEffect,
+  loginFailToastEffect,
   registerEffect,
+  registerFailToastEffect,
   registerSuccessToastEffect,
 } from './features/auth/store/auth.effects';
 export const appConfig: ApplicationConfig = {
@@ -15,6 +17,12 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(),
     provideState('auth', authReducer),
-    provideEffects({ loginEffect, registerEffect, registerSuccessToastEffect }),
+    provideEffects({
+      loginEffect,
+      loginFailToastEffect,
+      registerEffect,
+      registerSuccessToastEffect,
+      registerFailToastEffect,
+    }),
   ],
 };

@@ -27,6 +27,16 @@ export const loginEffect = createEffect(
     ),
   { functional: true },
 );
+export const loginFailToastEffect = createEffect(
+  (actions$ = inject(Actions)) =>
+    actions$.pipe(
+      ofType(loginFailed),
+      tap(() => {
+        toast.error('Login failed. Please try again.');
+      }),
+    ),
+  { functional: true, dispatch: false },
+);
 
 export const registerEffect = createEffect(
   (actions$ = inject(Actions), authService = inject(Auth)) =>
@@ -48,6 +58,16 @@ export const registerSuccessToastEffect = createEffect(
       ofType(registerSucceeded),
       tap(() => {
         toast.success('Registration successful!');
+      }),
+    ),
+  { functional: true, dispatch: false },
+);
+export const registerFailToastEffect = createEffect(
+  (actions$ = inject(Actions)) =>
+    actions$.pipe(
+      ofType(registerFailed),
+      tap(() => {
+        toast.error('Registration failed. Please try again.');
       }),
     ),
   { functional: true, dispatch: false },

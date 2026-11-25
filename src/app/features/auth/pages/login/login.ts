@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loginRequested } from '../../store/auth.actions';
+import { selectIsLoggingIn } from '../../store/auth.selectors';
 @Component({
   imports: [ReactiveFormsModule],
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { loginRequested } from '../../store/auth.actions';
 })
 export class Login {
   private readonly store = inject(Store);
+  readonly isLoggingIn = this.store.selectSignal(selectIsLoggingIn);
   title = 'Login';
 
   loginForm = new FormGroup({

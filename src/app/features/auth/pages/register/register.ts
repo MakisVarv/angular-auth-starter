@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { registerRequested } from '../../store/auth.actions';
 import { selectIsRegistering } from '../../store/auth.selectors';
-import { toast } from 'ngx-sonner';
 
 @Component({
   imports: [ReactiveFormsModule],
