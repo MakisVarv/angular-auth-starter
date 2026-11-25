@@ -1,7 +1,8 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of } from 'rxjs';
-
+import { toast } from 'ngx-sonner';
+import { tap } from 'rxjs';
 import { Auth } from '../services/auth';
 import {
   loginFailed,
@@ -40,4 +41,14 @@ export const registerEffect = createEffect(
       ),
     ),
   { functional: true },
+);
+export const registerSuccessToastEffect = createEffect(
+  (actions$ = inject(Actions)) =>
+    actions$.pipe(
+      ofType(registerSucceeded),
+      tap(() => {
+        toast.success('Registration successful!');
+      }),
+    ),
+  { functional: true, dispatch: false },
 );

@@ -8,3 +8,6 @@ export const selectAuthStatus = createSelector(selectAuthState, (state) => {
 export const selectIsRegistering = createSelector(selectAuthState, (state) => {
   return state.isRegistering;
 });
+export const selectRegistrationStatus = createSelector(selectAuthState, (state) => {
+  return state.registrationStatus;
+});

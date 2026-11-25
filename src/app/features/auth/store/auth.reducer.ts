@@ -27,6 +27,12 @@ export const authReducer = createReducer(
     isRegistering: false,
     registrationStatus: 'success',
   })),
+
+  on(registerFailed, (state) => ({
+    ...state,
+    isRegistering: false,
+    registrationStatus: 'error',
+  })),
   on(registerRequested, (state) => {
     return { ...state, isRegistering: true };
   }),
