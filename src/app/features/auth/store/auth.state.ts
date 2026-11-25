@@ -8,6 +8,7 @@ export interface AuthState {
 
   isLoggingIn: boolean;
   isRegistering: boolean;
+  registrationStatus: RegistrationStatus;
 }
 
 export const initialAuthState: AuthState = {
@@ -15,4 +16,6 @@ export const initialAuthState: AuthState = {
   status: 'checking',
   isLoggingIn: false,
   isRegistering: false,
+  registrationStatus: 'idle',
 };
+export type RegistrationStatus = 'idle' | 'success' | 'error';

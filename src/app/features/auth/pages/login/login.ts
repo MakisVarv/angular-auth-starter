@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { Auth } from '../../services/auth';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loginRequested } from '../../store/auth.actions';
@@ -10,7 +9,6 @@ import { loginRequested } from '../../store/auth.actions';
   templateUrl: './login.html',
 })
 export class Login {
-  private readonly authService = inject(Auth);
   private readonly store = inject(Store);
   title = 'Login';
 

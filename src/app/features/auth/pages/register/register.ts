@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Auth } from '../../services/auth';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { registerRequested } from '../../store/auth.actions';
 import { selectIsRegistering } from '../../store/auth.selectors';
@@ -12,7 +11,6 @@ import { selectIsRegistering } from '../../store/auth.selectors';
   templateUrl: './register.html',
 })
 export class Register {
-  private readonly authService = inject(Auth);
   private readonly store = inject(Store);
   readonly isRegistering = this.store.selectSignal(selectIsRegistering);
   title = 'Register';
