@@ -12,15 +12,20 @@ import {
   registerRequested,
   registerSucceeded,
 } from './auth.actions';
+import { Token } from '../services/token';
 
 export const loginEffect = createEffect(
-  (actions$ = inject(Actions), authService = inject(Auth)) =>
+  (actions$ = inject(Actions), authService = inject(Auth), tokenService = inject(Token)) =>
     actions$.pipe(
       ofType(loginRequested),
 
       exhaustMap(({ credentials }) =>
         authService.login(credentials).pipe(
+          tap((response) => {
+            tokenService.setToken(response.access_token);
+          }),
           map((response) => loginSucceeded({ user: response.user })),
+
           catchError(() => of(loginFailed())),
         ),
       ),
