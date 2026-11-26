@@ -11,9 +11,12 @@ import {
   registerFailToastEffect,
   registerSuccessToastEffect,
 } from './features/auth/store/auth.effects';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './features/auth/interceptors/auth-interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(routes),
     provideStore(),
     provideState('auth', authReducer),
