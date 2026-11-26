@@ -99,9 +99,17 @@ export const restoreSessionEffect = createEffect(
             }
 
             tokenService.setToken(response.access_token);
-            return authService
-              .getCurrentUser()
-              .pipe(map((user) => restoreSessionSucceeded({ user })));
+            return authService.getCurrentUser().pipe(
+              map((user) => restoreSessionSucceeded({ user })),
+              catchError(() => {
+                tokenService.clearToken();
+                return of(restoreSessionFailed());
+              }),
+            );
+          }),
+          catchError(() => {
+            tokenService.clearToken();
+            return of(restoreSessionFailed());
           }),
         ),
       ),
