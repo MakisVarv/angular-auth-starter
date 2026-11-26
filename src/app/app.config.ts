@@ -10,6 +10,7 @@ import {
   registerEffect,
   registerFailToastEffect,
   registerSuccessToastEffect,
+  restoreSessionEffect,
 } from './features/auth/store/auth.effects';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './features/auth/interceptors/auth-interceptor';
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
       registerEffect,
       registerSuccessToastEffect,
       registerFailToastEffect,
+      restoreSessionEffect,
     }),
   ],
 };
