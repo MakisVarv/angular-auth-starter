@@ -7,6 +7,9 @@ import {
   registerFailed,
   registerRequested,
   registerSucceeded,
+  restoreSessionFailed,
+  restoreSessionRequested,
+  restoreSessionSucceeded,
 } from './auth.actions';
 
 export const authReducer = createReducer(
@@ -40,5 +43,20 @@ export const authReducer = createReducer(
     ...state,
     isRegistering: true,
     registrationStatus: 'idle',
+  })),
+
+  on(restoreSessionSucceeded, (state) => ({
+    ...state,
+    status: 'authenticated',
+  })),
+
+  on(restoreSessionFailed, (state) => ({
+    ...state,
+    status: 'unauthenticated',
+  })),
+
+  on(restoreSessionRequested, (state) => ({
+    ...state,
+    status: 'checking',
   })),
 );

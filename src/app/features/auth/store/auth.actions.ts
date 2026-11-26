@@ -14,3 +14,9 @@ export const registerRequested = createAction(
   props<{ credentials: RegisterCredentials }>(),
 );
 export const registerFailed = createAction('[Auth] Register Failed');
+export const restoreSessionSucceeded = createAction(
+  '[Auth] Refresh Succeeded',
+  props<{ user: User }>(),
+);
+export const restoreSessionRequested = createAction('[Auth] Refresh Requested');
+export const restoreSessionFailed = createAction('[Auth] Refresh Failed');
