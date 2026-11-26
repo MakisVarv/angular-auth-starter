@@ -15,8 +15,8 @@ export const registerRequested = createAction(
 );
 export const registerFailed = createAction('[Auth] Register Failed');
 export const restoreSessionSucceeded = createAction(
-  '[Auth] Refresh Succeeded',
+  '[Auth] Restore Session Succeeded',
   props<{ user: User }>(),
 );
-export const restoreSessionRequested = createAction('[Auth] Refresh Requested');
-export const restoreSessionFailed = createAction('[Auth] Refresh Failed');
+export const restoreSessionRequested = createAction('[Auth] Restore Session Requested');
+export const restoreSessionFailed = createAction('[Auth] Restore Session Failed');

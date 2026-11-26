@@ -45,13 +45,15 @@ export const authReducer = createReducer(
     registrationStatus: 'idle',
   })),
 
-  on(restoreSessionSucceeded, (state) => ({
+  on(restoreSessionSucceeded, (state, action) => ({
     ...state,
+    user: action.user,
     status: 'authenticated',
   })),
 
   on(restoreSessionFailed, (state) => ({
     ...state,
+    user: null,
     status: 'unauthenticated',
   })),
 
