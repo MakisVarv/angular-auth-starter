@@ -42,11 +42,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             if (response === null) {
               return throwError(() => error);
             } else {
-              const token = response.access_token;
-              tokenService.setToken(token);
+              const newToken = response.access_token;
+              tokenService.setToken(newToken);
               const retryReq = req.clone({
                 setHeaders: {
-                  Authorization: `Bearer ${token}`,
+                  Authorization: `Bearer ${newToken}`,
                 },
               });
               return next(retryReq);
