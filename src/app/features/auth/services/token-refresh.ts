@@ -11,29 +11,30 @@ export class TokenRefresh {
   private readonly authUrl = `${environment.apiUrl}/auth`;
   private refresh$: Observable<RefreshTokenResponse | null> | null = null;
   refreshAccessToken(): Observable<RefreshTokenResponse | null> {
+    if (this.refresh$ !== null) {
+      return this.refresh$;
+    }
     const csrfToken = getCookie('csrf_refresh_token');
 
     if (csrfToken == null) {
       return of(null);
     }
-    if (this.refresh$ == null) {
-      this.refresh$ = this.http
-        .post<RefreshTokenResponse>(
-          `${this.authUrl}/refresh`,
-          {},
-          {
-            headers: {
-              'X-CSRF-TOKEN': csrfToken,
-            },
-            withCredentials: true,
-          },
-        )
-        .pipe(
-          shareReplay(1),
-          finalize(() => (this.refresh$ = null)),
-        );
-    }
 
+    this.refresh$ = this.http
+      .post<RefreshTokenResponse>(
+        `${this.authUrl}/refresh`,
+        {},
+        {
+          headers: {
+            'X-CSRF-TOKEN': csrfToken,
+          },
+          withCredentials: true,
+        },
+      )
+      .pipe(
+        finalize(() => (this.refresh$ = null)),
+        shareReplay(1),
+      );
     return this.refresh$;
   }
 }
