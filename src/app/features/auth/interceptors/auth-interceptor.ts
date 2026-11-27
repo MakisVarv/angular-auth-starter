@@ -13,7 +13,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if (!req.url.startsWith(`${environment.apiUrl}/`)) {
     return next(req);
   }
-
+  if (req.url === `${environment.apiUrl}/auth/refresh`) {
+    return next(req);
+  }
   if (req.headers.has('Authorization')) {
     return next(req);
   }
@@ -40,8 +42,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             if (response === null) {
               return throwError(() => error);
             } else {
-              tokenService.setToken(response.access_token);
-              return throwError(() => error);
+              const token = response.access_token;
+              tokenService.setToken(token);
+              const retryReq = req.clone({
+                setHeaders: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              return next(retryReq);
             }
           }),
         );
