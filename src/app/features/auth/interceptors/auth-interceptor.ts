@@ -2,11 +2,13 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { Token } from '../services/token';
 import { inject } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { catchError, throwError } from 'rxjs';
+import { catchError, switchMap, throwError } from 'rxjs';
+import { TokenRefresh } from '../services/token-refresh';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const tokenService = inject(Token);
   const token = tokenService.getToken();
+  const tokenRefresh = inject(TokenRefresh);
 
   if (!req.url.startsWith(`${environment.apiUrl}/`)) {
     return next(req);
@@ -33,7 +35,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         error.status === 401 &&
         error.error?.code === 'access_token_expired'
       ) {
-        console.log('Access token expired');
+        return tokenRefresh.refreshAccessToken().pipe(
+          switchMap((response) => {
+            if (response === null) {
+              return throwError(() => error);
+            } else {
+              tokenService.setToken(response.access_token);
+              return throwError(() => error);
+            }
+          }),
+        );
       }
 
       return throwError(() => error);
